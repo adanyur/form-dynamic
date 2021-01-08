@@ -1,0 +1,34 @@
+<div class="container p-4">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="card">
+            <div class="card-body">
+                <ng-container *ngFor="let form of forms$ |  async">
+                        <label>{{form.label}}</label>
+                        <div [ngSwitch]="form.controlType">
+
+                            <div *ngSwitchCase="'textbox'">
+                                <div class="form-group">
+                                    <input [type]="form.type" [id]="form.key" [formControlName]="form.key" class="form-control"/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" *ngSwitchCase="'select'">
+                                <select class="form-control">
+                                    <option *ngFor="let option of form.options" [ngValue]="option.key">{{option.value}}</option>
+                                </select>
+                            </div>
+                                
+                        </div>
+                        
+                </ng-container>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">enviar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ng-container *ngIf="value$">
+    {{ value$ | async | json}}
+</ng-container>
