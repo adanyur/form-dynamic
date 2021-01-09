@@ -5,17 +5,27 @@
                 <ng-container *ngFor="let form of forms$ |  async">
                         <label>{{form.label}}</label>
                         <div [ngSwitch]="form.controlType">
-
-                            <div *ngSwitchCase="'textbox'">
-                                <div class="form-group">
-                                    <input [type]="form.type" [id]="form.key" [formControlName]="form.key" class="form-control"/>
-                                </div>
+                          
+                            <div class="form-group" *ngSwitchCase="'textbox'">
+                                <input [type]="form.type" [id]="form.key" [formControlName]="form.key" class="form-control"/>
                             </div>
                             
+                            
                             <div class="form-group" *ngSwitchCase="'select'">
-                                <select class="form-control">
-                                    <option *ngFor="let option of form.options" [ngValue]="option.key">{{option.value}}</option>
+                                <select class="form-control" [formControlName]="form.key">
+                                    <option [ngValue]="null">SELECTION CITY</option>
+                                    <option *ngFor="let option of form.options" [value]="option.key">{{option.value}}</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group" *ngSwitchCase="'radio'">
+                                <div *ngFor="let option of form.optionRadio">
+                                    <input type="radio" 
+                                           [formControlName]="form.key"
+                                           [value]="option.key"
+                                           />
+                                           <label>{{option.value}}</label>
+                                </div>
                             </div>
                                 
                         </div>
@@ -30,5 +40,11 @@
 </div>
 
 <ng-container *ngIf="value$">
-    {{ value$ | async | json}}
+    <div class="d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ value$ | async | json}}</h5>               
+            </div>
+        </div>
+    </div>
 </ng-container>

@@ -22,40 +22,36 @@ export class FormService {
     label:'User',
     controlType:'textbox',
     type:'text',
-    order:4,
-    options:[]
+    order:1,
+    options:[],
+    optionRadio:[]
     
   },
   {
     value:null,
-    key:'password',
-    label:'Password',
-    controlType:'textbox',
-    type:'password',
-    order:2,
-    options:[]
-  },
-  {
-    value:null,
-    key:'fecha',
-    label:'Fecha',
-    controlType:'textbox',
-    type:'date',
-    order:3,
-    options:[]
-  },
-  {
-    value:'',
-    key:'genero',
-    label:'Genero',
+    key:'city',
+    label:'City',
     controlType:'select',
     type:'text',
-    order:1,
+    order:2,
     options:[
-      {key:'M',value:'MASCULINO'},
-      {key:'F',value:'FEMENINO'}
+      {key:'L',value:'LIMA'},
+      {key:'A',value:'AREQUIPA'}
+    ],
+    optionRadio:[]
+  },{
+    value:null,
+    key:'genero',
+    label:'Genero',
+    controlType:'radio',
+    type:'radio',
+    order:3,
+    options:[],
+    optionRadio:[
+      {key:"M",value:"MASCULINO",name:"genero",},
+      {key:"F",value:"FEMENINO",name:"genero"}
     ]
-  },
+  }
 
 ]
 

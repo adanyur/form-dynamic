@@ -5,9 +5,9 @@ export class FormBase<T>{
     label: string;
     controlType: string;
     type: string;
-    options:{key:string,value:string}[];
     order: number;
-
+    options:{key:string,value:string}[];
+    optionRadio:{key:string,value:string,name:string}[]
      constructor(options:{
          value?:T;
          key?:string;
@@ -16,6 +16,7 @@ export class FormBase<T>{
          controlType?:string;
          type?:string;
          options?:{key:string,value:string}[];
+         optionRadio?:{key:string,value:string,name:string}[];
             } = {}
          ){
             this.value = options.value;    
@@ -24,7 +25,8 @@ export class FormBase<T>{
             this.order = options.order === undefined? 1 : options.order;
             this.controlType = options.controlType||'';
             this.type = options.type||'';
-            this.options = options.options||[]
+            this.options = options.options||[];
+            this.optionRadio =options.optionRadio||[];
          }
 
 }
