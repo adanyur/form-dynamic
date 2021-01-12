@@ -1,18 +1,31 @@
 <div class="container p-4">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="card mb-2">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <a href="#" (click)="onForm('1')" class="btn btn-success">Especialidad</a>
+                <a href="#" (click)="onForm('2')" class="btn btn-success">Tipo Documentos</a>
+                <a href="#" (click)="onForm('3')" class="btn btn-success">rol</a>
+            </div>
+        </div>
+    </div>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="formulario">
         <div class="card">
             <div class="card-body">
-                <ng-container *ngFor="let form of forms$ |  async">
+                <ng-container *ngFor="let form of formulario">
                         <label>{{form.label}}</label>
-                        <div [ngSwitch]="form.controlType">
-                          
+                        <div [ngSwitch]="form.controltype">
                             <div class="form-group" *ngSwitchCase="'textbox'">
-                                <input [type]="form.type" [id]="form.key" [formControlName]="form.key" class="form-control"/>
+                                <input [type]="form.type" [id]="form.key" [formControlName]="form.key" class="form-control" />
                             </div>
-                            
-                            
+
+                            <div class="form-group" *ngSwitchCase="'checkbox'">
+                                <input [type]="form.type" [id]="form.key" [formControlName]="form.key" [value]="form.key" />
+                            </div>
+
+<!--                             
                             <div class="form-group" *ngSwitchCase="'select'">
-                                <select class="form-control" [formControlName]="form.key">
+                                <select class="form-control" [formControlName]="form.label">
                                     <option [ngValue]="null">SELECTION CITY</option>
                                     <option *ngFor="let option of form.options" [value]="option.key">{{option.value}}</option>
                                 </select>
@@ -21,17 +34,17 @@
                             <div class="form-group" *ngSwitchCase="'radio'">
                                 <div *ngFor="let option of form.optionRadio">
                                     <input type="radio" 
-                                           [formControlName]="form.key"
+                                           [formControlName]="form.label"
                                            [value]="option.key"
                                            />
                                            <label>{{option.value}}</label>
                                 </div>
-                            </div>
+                            </div> -->
                                 
                         </div>
                         
                 </ng-container>
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-center">
                     <button type="submit" class="btn btn-success">enviar</button>
                 </div>
             </div>

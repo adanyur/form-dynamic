@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl } from '@angular/forms'
+import { FormGroup,FormBuilder } from '@angular/forms'
 import { Observable , of} from 'rxjs'
 
 
 import { FormService } from '../core/services/form.service';
+import { HttpService } from '../core/services/http.service';
 import { FormBase } from '../core/helps/form-base'
 
 
@@ -15,24 +16,31 @@ import { FormBase } from '../core/helps/form-base'
 export class FormComponent implements OnInit {
 
   forms$:Observable<FormBase<any>[]>;
-  form:FormGroup;
   value$:Observable<any>;
-  constructor(private formService:FormService) { }
+  form:FormGroup;
+  
+  formulario:any
+
+
+  constructor(private formService:FormService,private fb:FormBuilder,private httpService:HttpService
+              ) { }
 
   ngOnInit(): void {
-    this.forms$ = this.formService.getForm()
-    this.add()
+    this.form = this.fb.group({})
   }
 
 
-add(){
-  this.formService.getForm().subscribe((data:FormBase<string>[])=>{
+onForm(data:string){  
+  this.httpService.getFormulario(data).subscribe((data:FormBase<string>[])=>{  
     this.form = this.formService.formGroup(data)
+    this.formulario=data.sort((a,b)=> a.order - b.order)
   })
 }
 
+
 onSubmit(){
-  this.value$ =  of(this.form.value)
+//  this.value$ = this.httpService.getFormulario(this.form.value)
+  this.value$ = of(this.form.value)
 }
 
 
