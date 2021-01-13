@@ -1,16 +1,16 @@
-<div class="container p-4">
+<!-- <div class="container p-4">
     <div class="card mb-2">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <a href="#" (click)="onForm('1')" class="btn btn-success">Especialidad</a>
-                <a href="#" (click)="onForm('2')" class="btn btn-success">Tipo Documentos</a>
-                <a href="#" (click)="onForm('3')" class="btn btn-success">rol</a>
+                <a href="#" (click)="onForm('1')" class="btn btn-success w-25">+ add especialidad</a>
+                <a href="#" (click)="onForm('2')" class="btn btn-success w-25">+ add Tipo Documentos</a>
+                <a href="#" (click)="onForm('3')" class="btn btn-success w-25">+ add rol</a>
             </div>
         </div>
     </div>
     
     <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="formulario">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-body">
                 <ng-container *ngFor="let form of formulario">
                         <label>{{form.label}}</label>
@@ -20,10 +20,10 @@
                             </div>
 
                             <div class="form-group" *ngSwitchCase="'checkbox'">
-                                <input [type]="form.type" [id]="form.key" [formControlName]="form.key" [value]="form.key" />
+                                <input type="checkbox" [id]="form.key" [formControlName]="form.key" />
                             </div>
 
-<!--                             
+                        
                             <div class="form-group" *ngSwitchCase="'select'">
                                 <select class="form-control" [formControlName]="form.label">
                                     <option [ngValue]="null">SELECTION CITY</option>
@@ -39,7 +39,7 @@
                                            />
                                            <label>{{option.value}}</label>
                                 </div>
-                            </div> -->
+                            </div>
                                 
                         </div>
                         
@@ -50,14 +50,21 @@
             </div>
         </div>
     </form>
-</div>
-
-<ng-container *ngIf="value$">
-    <div class="d-flex justify-content-center">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ value$ | async | json}}</h5>               
+    <div class="alert alert-success text-center" role="alert" *ngIf="value$ | async as value">
+        {{value.message}}
+    </div>
+    <div class="list-group">
+        <span class="list-group-item"
+            *ngFor="let especialidad of especialidad$ | async">{{especialidad.es_descripcion}}</span>
+    </div>
+    </div> -->
+    <div class="container p-4">
+        <form [formGroup]="form">
+            <div class="form-group">
+                <input type="date" class="form-control" (change)="getPro($event.target.value)" formControlName="fecha">
             </div>
+        </form>
+        <div class="list-group">
+            <span class="list-group-item" *ngFor="let espe of data$ | async">{{espe.especialidad.es_descripcion}}</span>
         </div>
     </div>
-</ng-container>
